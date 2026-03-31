@@ -1,4 +1,10 @@
 # IN1007-PLP-Conjuntos-em-linguagens-funcionais
+
+## Equipe
+Pedro Henrique Almeida Girão Peixinho (phagp)
+
+Renato Cavalcanti Domingues da Silva Filho (rcdsf)
+
 ## 1. Descrição do Projeto
 
 ### Objetivo
