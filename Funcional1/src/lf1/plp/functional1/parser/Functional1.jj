@@ -28,7 +28,9 @@ import lf1.plp.expressions2.expression.ExpSoma;
 import lf1.plp.expressions2.expression.ExpSub;
 import lf1.plp.expressions2.expression.ExpIn;
 import lf1.plp.expressions2.expression.ExpUnion;
+import lf1.plp.expressions2.expression.ExpUnionAll;
 import lf1.plp.expressions2.expression.ExpInter;
+import lf1.plp.expressions2.expression.ExpInterAll;
 import lf1.plp.expressions2.expression.ExpMinusSet;
 import lf1.plp.expressions2.expression.ExpSubset;
 import lf1.plp.expressions2.expression.Expressao;
@@ -181,6 +183,8 @@ TOKEN : /* TOKENS DE FUNCIONAL 1 */
 | < INTER : "inter" >
 | < MINUS_SET : "minus" >
 | < SUBSET : "subset" >
+| < UNIONALL : "unionAll" >
+| < INTERALL : "interAll" >
 }
 
 TOKEN : /* LITERALS */
@@ -571,29 +575,62 @@ Expressao PAplicacao() :
   }
 }
 
+Expressao PExpUnionAll() :
+{
+  Expressao conjunto;
+}
+{
+  < UNIONALL > conjunto = PExpPrimaria()
+  {
+    return new ExpUnionAll(conjunto);
+  }
+}
+
+Expressao PExpInterAll() :
+{
+  Expressao conjunto;
+}
+{
+  < INTERALL > conjunto = PExpPrimaria()
+  {
+    return new ExpInterAll(conjunto);
+  }
+}
+
 Expressao PExpUnaria() :
 {
   Expressao retorno;
 }
 {
   (
-    LOOKAHEAD(PExpMenos())
+    LOOKAHEAD(PExpUnionAll())
+    retorno = PExpUnionAll()
+
+  | LOOKAHEAD(PExpInterAll())
+    retorno = PExpInterAll()
+    
+  | LOOKAHEAD(PExpMenos())
     retorno = PExpMenos()
+
   | LOOKAHEAD(PExpNot())
     retorno = PExpNot()
+
   | LOOKAHEAD(PExpLength())
     retorno = PExpLength()
+
   | LOOKAHEAD(PExpDeclaracao())
     retorno = PExpDeclaracao()
+
   | LOOKAHEAD(PExpCondicional())
     retorno = PExpCondicional()
+
   | LOOKAHEAD(PId() < LPAREN >)
     retorno = PAplicacao()
+
   | LOOKAHEAD(PExpPrimaria())
     retorno = PExpPrimaria()
   )
   {
-    //System.out.println("ExpressaoUnaria=" + retorno);
     return retorno;
   }
 }

@@ -8,16 +8,26 @@ Renato Cavalcanti Domingues da Silva Filho (rcdsf)
 ## 1. Descrição do Projeto
 
 ### Objetivo
-Este projeto tem como objetivo estender a Linguagem Funcional 1 (LF1) introduzindo o tipo de dado Set (Conjunto) e o suporte a operações clássicas de álgebra de conjuntos. Com isso, será possível declarar conjuntos finitos e aplicar operações de união, interseção e diferença de forma imutável. A linguagem também receberá operadores específicos para testar se um elemento pertence a um conjunto ou se um conjunto é subconjunto de outro.
+Este projeto tem como objetivo estender a Linguagem Funcional 1 (LF1) introduzindo o tipo de dado Set (Conjunto) e o suporte a operações clássicas de álgebra de conjuntos. Com isso, será possível declarar conjuntos finitos e aplicar operações de união, interseção e diferença de forma imutável. 
+Além das operações básicas, a linguagem também recebeu operadores para:
+- verificar pertencimento de elementos;
+- verificar relação de subconjunto;
+- realizar união distribuída (`unionAll`);
+- realizar interseção distribuída (`interAll`).
 
-### Funções a serem adicionadas
+### 2. Funcionalidades Implementadas
 
-**Operações**
+## Tipo de dado
+- `Set`
+
+**Operações de conjuntos**
 * `union`
 * `inter`
 * `minus`
+* `unionAll`
+* `interAll`
 
-**Predicados (em aberto)**
+**Predicados**
 * `in`
 * `subset`
 
@@ -48,6 +58,8 @@ ValorSet ::= "{" ListExp "}" | "{}"
 ExpUnaria ::= "-" Expressao
             | "not" Expressao
             | "length" Expressao
+            | "unionAll" Expressao
+            | "interAll" Expressao
 
 ExpBinaria ::= Expressao "+" Expressao
              | Expressao "-" Expressao
